@@ -164,7 +164,7 @@ allprojects {
         showCauses true
         showStackTraces true
         stackTraceFilters.clear()
-        showStandardStreams false
+        showStandardStreams true
       }
 
       // Set up custom test output handler.
