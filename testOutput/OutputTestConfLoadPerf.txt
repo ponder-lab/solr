@@ -1,0 +1,17 @@
+(base) benjaminprudhomme@MacBook-Air solr % ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.core.TestConfLoadPerf
+
+> Task :errorProneSkipped
+WARNING: errorprone disabled (skipped on builds not running inside CI environments, pass -Pvalidation.errorprone=true to enable)
+
+> Task :randomizationInfo
+Running tests with randomization seed: tests.seed=D4BB704312190C99
+
+> Task :solr:core:test
+WARNING: A command line option has enabled the Security Manager
+WARNING: The Security Manager is deprecated and will be removed in a future release
+:solr:core:test (SUCCESS): 1 test(s), 1 skipped
+The slowest suites (exceeding 1s) during this run:
+   7.06s TestConfLoadPerf (:solr:core)
+
+BUILD SUCCESSFUL in 38s
+141 actionable tasks: 58 executed, 83 up-to-date
