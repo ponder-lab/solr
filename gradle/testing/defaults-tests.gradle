@@ -158,13 +158,12 @@ allprojects {
 
       // Set up logging.
       testLogging {
-        events TestLogEvent.FAILED
+        events TestLogEvent.FAILED, "standardOut"
         exceptionFormat TestExceptionFormat.FULL
         showExceptions true
         showCauses true
         showStackTraces true
         stackTraceFilters.clear()
-        showStandardStreams true
       }
 
       // Set up custom test output handler.
