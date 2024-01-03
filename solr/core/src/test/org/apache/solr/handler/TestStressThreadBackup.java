@@ -170,7 +170,6 @@ public class TestStressThreadBackup extends SolrCloudTestCase {
 
     // this thread will do nothing but add/commit new 'dummy' docs over and over again as fast as
     // possible to create a lot of index churn w/ segment merging
-    System.out.println("new Thread(...) call");
     final Thread heavyCommitting =
         new Thread() {
           @Override

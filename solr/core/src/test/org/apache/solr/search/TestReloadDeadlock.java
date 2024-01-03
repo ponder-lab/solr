@@ -95,7 +95,6 @@ public class TestReloadDeadlock extends TestRTGBase {
     final AtomicLong testVersion = new AtomicLong(0);
 
     for (int i = 0; i < nWriteThreads; i++) {
-    	System.out.println("new Thread(...) call");
       Thread thread =
           new Thread("WRITER" + i) {
             Random rand = new Random(random().nextInt());

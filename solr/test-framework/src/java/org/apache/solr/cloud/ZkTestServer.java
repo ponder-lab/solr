@@ -542,7 +542,6 @@ public class ZkTestServer {
       }
       Thread parentThread = Thread.currentThread();
       // we don't call super.distribSetUp
-      System.out.println("new Thread(...) call");
       zooThread =
           new Thread("ZkTestServer Run Thread") {
 

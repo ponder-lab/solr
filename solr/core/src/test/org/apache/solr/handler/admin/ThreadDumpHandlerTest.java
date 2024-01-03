@@ -74,7 +74,6 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
     final CountDownLatch lockIsHeldLatch = new CountDownLatch(1);
     final CountDownLatch doneWithTestLatch = new CountDownLatch(1);
     final Object monitor = new TestMonitorStruct();
-    System.out.println("new Thread(...) call");
     final Thread ownerT =
         new Thread(
             () -> {
@@ -94,7 +93,6 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
 
     // only used if checkBlockedThreadViaPolling
     // don't start until after lockIsHeldLatch fires
-    System.out.println("new Thread(...) call");
     final Thread blockedT =
         new Thread(
             () -> {
@@ -199,7 +197,6 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
     final CountDownLatch lockIsHeldLatch = new CountDownLatch(1);
     final CountDownLatch doneWithTestLatch = new CountDownLatch(1);
     final ReentrantLock lock = new ReentrantLock();
-    System.out.println("new Thread(...) call");
     final Thread ownerT =
         new Thread(
             () -> {
@@ -222,7 +219,6 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
 
     // only used if checkWaitingThreadViaPolling
     // don't start until after lockIsHeldLatch fires
-    System.out.println("new Thread(...) call");
     final Thread blockedT =
         new Thread(
             () -> {

@@ -257,7 +257,6 @@ public class OrderedExecutorTest extends SolrTestCase {
       // Add another task in a background thread so that we can interrupt it
       // This _should_ be blocked on the first task because there is only one execution slot
       CountDownLatch taskTwoFinished = new CountDownLatch(1);
-      System.out.println("new Thread(...) call");
       Thread t = new Thread(() -> orderedExecutor.execute(2, taskTwoFinished::countDown));
       t.start();
       // Interrupt the thread now, but it won't throw until it calls acquire()
@@ -273,7 +272,6 @@ public class OrderedExecutorTest extends SolrTestCase {
       orderedExecutor.execute(() -> {});
 
       // New threads for lock #2 should be able to execute as well
-      System.out.println("new Thread(...) call");
       t = new Thread(() -> orderedExecutor.execute(2, () -> {}));
       t.start();
 

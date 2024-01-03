@@ -34,7 +34,6 @@ public class SolrNamedThreadFactory implements ThreadFactory {
 
   @Override
   public Thread newThread(Runnable r) {
-	  System.out.println("new Thread(...) call");
     Thread t = new Thread(group, r, prefix + threadNumber.getAndIncrement(), 0);
 
     t.setDaemon(false);

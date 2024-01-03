@@ -83,7 +83,6 @@ public class TestLockTree extends SolrTestCaseJ4 {
       for (Pair<CollectionAction, List<String>> operation : operations) {
         final Lock lock = session.lock(operation.first(), operation.second());
         if (lock != null) {
-        	System.out.println("new Thread(...) call");
           Thread thread = new Thread(getRunnable(completedOps, operation, locks, lock));
           threads.add(thread);
           thread.start();

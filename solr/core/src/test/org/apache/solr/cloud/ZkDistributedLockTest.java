@@ -175,7 +175,6 @@ public class ZkDistributedLockTest extends SolrTestCaseJ4 {
 
     // Wait for acquisition of the write lock on another thread (and be notified via a latch)
     final CountDownLatch latch = new CountDownLatch(1);
-    System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               writeLock.waitUntilAcquired();
@@ -263,7 +262,6 @@ public class ZkDistributedLockTest extends SolrTestCaseJ4 {
 
     // Wait for acquisition of the write lock on another thread (and be notified via a latch)
     final CountDownLatch latch = new CountDownLatch(1);
-    System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               configSetWL1.waitUntilAcquired();

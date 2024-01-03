@@ -66,7 +66,6 @@ public class TestStressVersions extends TestRTGBase {
     List<Thread> threads = new ArrayList<>();
 
     for (int i = 0; i < nWriteThreads; i++) {
-    	System.out.println("new Thread(...) call");
       Thread thread =
           new Thread("WRITER" + i) {
             Random rand = new Random(random().nextInt());
@@ -202,7 +201,6 @@ public class TestStressVersions extends TestRTGBase {
     }
 
     for (int i = 0; i < nReadThreads; i++) {
-    	System.out.println("new Thread(...) call");
       Thread thread =
           new Thread("READER" + i) {
             Random rand = new Random(random().nextInt());

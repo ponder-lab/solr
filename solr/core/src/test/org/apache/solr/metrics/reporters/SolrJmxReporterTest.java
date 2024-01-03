@@ -231,7 +231,6 @@ public class SolrJmxReporterTest extends SolrTestCaseJ4 {
     final ObjectInstance inst = objects.iterator().next();
     final AtomicBoolean running = new AtomicBoolean(true);
     try {
-    	System.out.println("new Thread(...) call");
       new Thread(
               () -> {
                 while (running.get()) {

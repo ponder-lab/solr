@@ -217,7 +217,6 @@ public class ZkShardTermsTest extends SolrCloudTestCase {
     Thread[] threads = new Thread[failedReplicas.size()];
     for (int i = 0; i < failedReplicas.size(); i++) {
       String replica = failedReplicas.get(i);
-      System.out.println("new Thread(...) call");
       threads[i] =
           new Thread(
               () -> {

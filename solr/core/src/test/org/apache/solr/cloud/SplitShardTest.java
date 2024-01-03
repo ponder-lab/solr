@@ -234,7 +234,6 @@ public class SplitShardTest extends SolrCloudTestCase {
     try {
 
       for (int i = 0; i < nThreads; i++) {
-    	  System.out.println("new Thread(...) call");
         indexThreads[i] =
             new Thread(
                 () -> {

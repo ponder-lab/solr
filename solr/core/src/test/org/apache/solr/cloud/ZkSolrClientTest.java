@@ -139,7 +139,7 @@ public class ZkSolrClientTest extends SolrTestCaseJ4 {
       server.shutdown();
 
       Thread.sleep(80);
-      System.out.println("new Thread(...) call");
+
       Thread thread =
           new Thread() {
             @Override
@@ -162,7 +162,7 @@ public class ZkSolrClientTest extends SolrTestCaseJ4 {
       // TODO: can we do better?
       // wait for reconnect
       Thread.sleep(600);
-      System.out.println("new Thread(...) call");
+
       Thread thread2 =
           new Thread() {
             @Override

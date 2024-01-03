@@ -1188,7 +1188,6 @@ public class OverseerTest extends SolrTestCaseJ4 {
       ZkController.createClusterZkNodes(zkClient);
 
       killer = new OverseerRestarter(server.getZkAddress());
-      System.out.println("new Thread(...) call");
       killerThread = new Thread(killer, "OverseerRestarter");
       killerThread.start();
 
@@ -1931,7 +1930,6 @@ public class OverseerTest extends SolrTestCaseJ4 {
     when(zkController.getZkClient()).thenReturn(zkClient);
     when(zkController.getZkStateReader()).thenReturn(reader);
     // primitive support for CC.runAsync
-    System.out.println("new Thread(...) call");
     doAnswer(
             invocable -> {
               Runnable r = invocable.getArgument(0);
@@ -2148,7 +2146,6 @@ public class OverseerTest extends SolrTestCaseJ4 {
     final AtomicBoolean doneWaiting = new AtomicBoolean(false);
     final OverseerTaskQueue.LatchWatcher latch2 =
         new OverseerTaskQueue.LatchWatcher(Event.EventType.NodeCreated);
-    System.out.println("new Thread(...) call");
     Thread t =
         new Thread(
             () -> {

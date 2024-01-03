@@ -108,7 +108,6 @@ public class ConfigSetApiLockingTest extends SolrTestCaseJ4 {
     // Wait for acquisition of the base config set lock on another thread (and be notified via a
     // latch)
     final CountDownLatch latch = new CountDownLatch(1);
-    System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               csBaseLock.waitUntilAcquired();

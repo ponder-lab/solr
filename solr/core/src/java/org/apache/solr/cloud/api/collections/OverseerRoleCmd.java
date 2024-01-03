@@ -107,7 +107,6 @@ public class OverseerRoleCmd implements CollApiCmds.CollectionApiCommand {
     // if there are too many nodes this command may time out. And most likely dedicated
     // overseers are created when there are too many nodes  . So , do this operation in a separate
     // thread
-	System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               try {

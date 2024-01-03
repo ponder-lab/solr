@@ -483,7 +483,6 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
     threads.add(thread1);
     scheduler.schedule(thread1, 0, TimeUnit.MILLISECONDS);
 
-    System.out.println("new Thread(...) call");
     Thread scheduleThread =
         new Thread() {
           @Override
@@ -505,7 +504,6 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
           }
         };
 
-    System.out.println("new Thread(...) call");
     Thread killThread =
         new Thread() {
           @Override
@@ -531,7 +529,7 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
             }
           }
         };
-    System.out.println("new Thread(...) call");
+
     Thread connLossThread =
         new Thread(
             () -> {

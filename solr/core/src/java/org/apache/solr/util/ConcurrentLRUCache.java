@@ -341,7 +341,6 @@ public class ConcurrentLRUCache<K, V> implements Cache<K, V>, Accountable {
             || oldestEntryNs.get() < idleCutoff)
         && !isCleaning) {
       if (newThreadForCleanup) {
-    	  System.out.println("new Thread(...) call");
         new Thread(this::markAndSweep, "CacheCleanupThread").start();
       } else if (cleanupThread != null) {
         cleanupThread.wakeThread();

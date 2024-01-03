@@ -699,7 +699,6 @@ public class OverseerCollectionConfigSetProcessorTest extends SolrTestCaseJ4 {
   }
 
   protected void startComponentUnderTest() {
-	System.out.println("new Thread(...) call");
     thread = new Thread(underTest);
     thread.start();
   }

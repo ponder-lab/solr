@@ -1498,7 +1498,6 @@ public class TestReplicationHandler extends SolrTestCaseJ4 {
 
     // Add a few more docs in the leader. Just to make sure that we are replicating the correct
     // index point. These extra docs should not get replicated
-    System.out.println("new Thread(...) call");
     new Thread(new AddExtraDocs(leaderClient, totalDocs)).start();
 
     // Wait and make sure that it actually replicated correctly.

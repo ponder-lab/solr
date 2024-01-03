@@ -206,7 +206,6 @@ public class TestRetrieveFieldsOptimizer extends SolrTestCaseJ4 {
 
     Thread threads[] = new Thread[numThreads];
     for (int idx = 0; idx < numThreads; idx++) {
-    	System.out.println("new Thread(...) call");
       threads[idx] =
           new Thread() {
             @Override

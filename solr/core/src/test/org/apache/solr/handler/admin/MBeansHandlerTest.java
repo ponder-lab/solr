@@ -185,7 +185,6 @@ public class MBeansHandlerTest extends SolrTestCaseJ4 {
             h.getCoreContainer().getMetricManager(), "testMetricsSnapshot", "foobar"),
         "foo");
     runSnapshots = true;
-    System.out.println("new Thread(...) call");
     Thread modifier =
         new Thread(
             () -> {
@@ -200,7 +199,6 @@ public class MBeansHandlerTest extends SolrTestCaseJ4 {
                 }
               }
             });
-    System.out.println("new Thread(...) call");
     Thread reader =
         new Thread(
             () -> {

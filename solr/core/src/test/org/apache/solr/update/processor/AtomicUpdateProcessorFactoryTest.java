@@ -184,7 +184,6 @@ public class AtomicUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
 
     for (int i = 0; i < 10; i++) {
       int index = random().nextInt(5);
-      System.out.println("new Thread(...) call");
       Thread t =
           new Thread() {
             @Override

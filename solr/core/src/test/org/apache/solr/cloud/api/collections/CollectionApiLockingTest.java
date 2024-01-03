@@ -171,7 +171,6 @@ public class CollectionApiLockingTest extends SolrTestCaseJ4 {
 
     // Wait for acquisition of the replica lock on another thread (and be notified via a latch)
     final CountDownLatch latch = new CountDownLatch(1);
-    System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               replicaShard1Lock.waitUntilAcquired();

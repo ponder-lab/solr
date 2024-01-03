@@ -156,8 +156,7 @@ public class SnapShooter {
   }
 
   protected void deleteSnapAsync(final ReplicationHandler replicationHandler) {
-	  System.out.println("new Thread(...) call");
-	  new Thread(() -> deleteNamedSnapshot(replicationHandler), "DeleteNamedSnapshot").start();
+    new Thread(() -> deleteNamedSnapshot(replicationHandler), "DeleteNamedSnapshot").start();
   }
 
   public void validateCreateSnapshot() throws IOException {
@@ -249,7 +248,6 @@ public class SnapShooter {
   public void createSnapAsync(final int numberToKeep, Consumer<NamedList<?>> result)
       throws IOException {
     // TODO should use Solr's ExecutorUtil
-	System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               NamedList<Object> snapShootDetails = new SimpleOrderedMap<>();

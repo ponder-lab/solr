@@ -68,7 +68,6 @@ public class TestSolrConfigHandlerConcurrent extends AbstractFullDistribZkTestBa
       if (e.getValue() instanceof Map) {
         List<String> errs = new ArrayList<>();
         collectErrors.add(errs);
-        System.out.println("new Thread(...) call");
         Thread t =
             new Thread(
                 () -> {

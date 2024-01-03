@@ -385,7 +385,6 @@ public class ReplicationHandler extends RequestHandlerBase
     }
     final SolrParams paramsCopy = new ModifiableSolrParams(solrParams);
     final IndexFetchResult[] results = new IndexFetchResult[1];
-    System.out.println("new Thread(...) call");
     Thread fetchThread =
         new Thread(
             () -> {

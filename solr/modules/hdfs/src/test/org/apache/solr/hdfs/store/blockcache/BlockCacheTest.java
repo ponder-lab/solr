@@ -143,7 +143,7 @@ public class BlockCacheTest extends SolrTestCase {
     for (int i = 0; i < threads.length; i++) {
       final int threadnum = i;
       final long seed = rnd.nextLong();
-      System.out.println("new Thread(...) call");
+
       threads[i] =
           new Thread() {
             Random r;
@@ -313,7 +313,7 @@ public class BlockCacheTest extends SolrTestCase {
     Thread[] threads = new Thread[nThreads];
     for (int i = 0; i < threads.length; i++) {
       final long seed = rnd.nextLong();
-      System.out.println("new Thread(...) call");
+
       threads[i] =
           new Thread() {
             Random r;

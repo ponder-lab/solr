@@ -659,7 +659,6 @@ public abstract class BaseDistributedSearchTestCase extends SolrTestCaseJ4 {
       log.info("starting stress...");
       Thread[] threads = new Thread[nThreads];
       for (int i = 0; i < threads.length; i++) {
-    	  System.out.println("new Thread(...) call");
         threads[i] =
             new Thread(
                 () -> {

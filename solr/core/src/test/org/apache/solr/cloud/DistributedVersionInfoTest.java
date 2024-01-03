@@ -152,7 +152,6 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
     final Set<Integer> deletedDocs = new HashSet<>();
     final AtomicInteger docsSent = new AtomicInteger(0);
     final Random rand = new Random(5150);
-    System.out.println("new Thread(...) call");
     Thread docSenderThread =
         new Thread() {
           @Override
@@ -182,7 +181,6 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
           }
         };
 
-    System.out.println("new Thread(...) call");
     Thread reloaderThread =
         new Thread() {
           @Override
@@ -206,7 +204,6 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
           }
         };
 
-    System.out.println("new Thread(...) call");
     Thread deleteThread =
         new Thread() {
           @Override
@@ -235,7 +232,7 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
             }
           }
         };
-    System.out.println("new Thread(...) call");
+
     Thread committerThread =
         new Thread() {
           @Override
