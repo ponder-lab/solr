@@ -161,6 +161,7 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
       Map<String, Object> metrics = cache.getSolrMetricsContext().getMetricsSnapshot();
       perImplRatio.addValue(Double.parseDouble(String.valueOf(metrics.get("CACHE.foo.hitratio"))));
       perImplTime.addValue((double) (stopTime - startTime));
+      System.out.println((double) (stopTime - startTime)); // For initial testing only; remove before doing "official" testing
       cache.close();
     }
   }
