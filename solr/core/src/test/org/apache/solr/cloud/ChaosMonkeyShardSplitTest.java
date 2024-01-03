@@ -89,6 +89,7 @@ public class ChaosMonkeyShardSplitTest extends ShardSplitTest {
       }
       commit();
 
+      System.out.println("new Thread(...) call");
       indexThread =
           new Thread() {
             @Override
@@ -138,6 +139,7 @@ public class ChaosMonkeyShardSplitTest extends ShardSplitTest {
       // Kill the overseer
       // TODO: Actually kill the Overseer instance
       killer = new OverseerRestarter(zkServer.getZkAddress());
+      System.out.println("new Thread(...) call");
       killerThread = new Thread(killer);
       killerThread.start();
       killCounter.incrementAndGet();

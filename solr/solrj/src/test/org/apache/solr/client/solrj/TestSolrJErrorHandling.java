@@ -158,6 +158,7 @@ public class TestSolrJErrorHandling extends SolrJettyTestBase {
 
     for (int i = 0; i < numThreads; i++) {
       final int threadNum = i;
+      System.out.println("new Thread(...) call");
       threads.add(
           new Thread() {
             int reqLeft = numRequests;

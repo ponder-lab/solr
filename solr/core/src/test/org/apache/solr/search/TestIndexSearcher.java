@@ -310,7 +310,7 @@ public class TestIndexSearcher extends SolrTestCaseJ4 {
       assertNotNull(newCore.getSearchComponent("mock"));
       assertEquals(MockSearchComponent.class, newCore.getSearchComponent("mock").getClass());
       assertFalse(newCore.getSolrConfig().useColdSearcher);
-
+      System.out.println("new Thread(...) call");
       Thread t =
           new Thread() {
             @Override
@@ -383,7 +383,7 @@ public class TestIndexSearcher extends SolrTestCaseJ4 {
       assertNotNull(newCore.getSearchComponent("mock"));
       assertEquals(MockSearchComponent.class, newCore.getSearchComponent("mock").getClass());
       assertTrue(newCore.getSolrConfig().useColdSearcher);
-
+      System.out.println("new Thread(...) call");
       Thread t =
           new Thread() {
             @Override

@@ -81,6 +81,7 @@ public class ZkFailoverTest extends SolrCloudTestCase {
     Thread[] threads = new Thread[cluster.getJettySolrRunners().size()];
     for (int i = 0; i < cluster.getJettySolrRunners().size(); i++) {
       final JettySolrRunner runner = cluster.getJettySolrRunner(i);
+      System.out.println("new Thread(...) call");
       threads[i] =
           new Thread(
               () -> {

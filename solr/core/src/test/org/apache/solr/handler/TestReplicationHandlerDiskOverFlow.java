@@ -176,7 +176,7 @@ public class TestReplicationHandlerDiskOverFlow extends SolrTestCaseJ4 {
             return true;
           }
         };
-
+    System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               try {

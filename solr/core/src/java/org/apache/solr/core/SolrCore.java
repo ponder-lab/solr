@@ -3484,6 +3484,7 @@ public class SolrCore implements SolrInfoBean, Closeable {
     final String myIndexDir = getNewIndexDir(); // ensure the latest replicated index is protected
     final String coreName = getName();
     if (myDirFactory != null && myDataDir != null && myIndexDir != null) {
+      System.out.println("new Thread(...) call");
       Thread cleanupThread =
           new Thread(
               () -> {

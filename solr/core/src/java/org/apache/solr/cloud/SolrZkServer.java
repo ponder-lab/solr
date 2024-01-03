@@ -132,6 +132,7 @@ public class SolrZkServer {
       System.setProperty(ZK_WHITELIST_PROPERTY, "ruok, mntr, conf");
     }
     AtomicReference<Exception> zkException = new AtomicReference<>();
+    System.out.println("new Thread(...) call");
     zkThread =
         new Thread(
             () -> {

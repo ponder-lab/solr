@@ -550,6 +550,7 @@ public class ShardSplitTest extends BasicDistributedZkTest {
               });
         };
 
+    System.out.println("new Thread(...) call");
     Thread monkeyThread = new Thread(monkey);
     monkeyThread.start();
     try {
@@ -702,6 +703,7 @@ public class ShardSplitTest extends BasicDistributedZkTest {
               exc.set(e);
             }
           };
+      System.out.println("new Thread(...) call");
       Thread t = new Thread(r);
       t.start();
       // wait for the split to start executing
@@ -867,6 +869,7 @@ public class ShardSplitTest extends BasicDistributedZkTest {
     commit();
 
     List<String> errors = new CopyOnWriteArrayList<>();
+    System.out.println("new Thread(...) call");
     Thread indexThread =
         new Thread(
             () -> {

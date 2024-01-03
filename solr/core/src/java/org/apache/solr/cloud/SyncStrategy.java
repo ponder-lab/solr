@@ -351,6 +351,7 @@ public class SyncStrategy {
   private void requestRecovery(
       final ZkNodeProps leaderProps, final String baseUrl, final String coreName)
       throws SolrServerException, IOException {
+	System.out.println("new Thread(...) call");
     Thread thread =
         new Thread(
             () -> {

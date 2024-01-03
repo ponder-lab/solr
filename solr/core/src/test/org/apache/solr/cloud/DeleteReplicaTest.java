@@ -520,6 +520,7 @@ public class DeleteReplicaTest extends SolrCloudTestCase {
     Thread[] threads = new Thread[100];
     for (int i = 0; i < threads.length; i++) {
       int finalI = i;
+      System.out.println("new Thread(...) call");
       threads[i] =
           new Thread(
               () -> {

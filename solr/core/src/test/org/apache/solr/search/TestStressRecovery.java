@@ -104,7 +104,7 @@ public class TestStressRecovery extends TestRTGBase {
 
     for (int i = 0; i < nWriteThreads; i++) {
       final int threadNum = i;
-
+      System.out.println("new Thread(...) call");
       Thread thread =
           new Thread("WRITER" + i) {
             Random rand = new Random(random().nextInt());
@@ -290,6 +290,7 @@ public class TestStressRecovery extends TestRTGBase {
     }
 
     for (int i = 0; i < nReadThreads; i++) {
+    	System.out.println("new Thread(...) call");
       Thread thread =
           new Thread("READER" + i) {
             Random rand = new Random(random().nextInt());

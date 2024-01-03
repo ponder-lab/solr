@@ -285,6 +285,7 @@ public class MultiThreadedOCPTest extends AbstractFullDistribZkTestBase {
   @Test
   public void testLongAndShortRunningParallelApiCalls()
       throws InterruptedException, IOException, SolrServerException {
+    System.out.println("new Thread(...) call");
     Thread indexThread =
         new Thread() {
           @Override

@@ -359,6 +359,7 @@ public class TestLazyCores extends SolrTestCaseJ4 {
 
       Thread[] threads = new Thread[15];
       for (int idx = 0; idx < threads.length; idx++) {
+    	  System.out.println("new Thread(...) call");
         threads[idx] =
             new Thread() {
               @Override
@@ -1052,6 +1053,7 @@ public class TestLazyCores extends SolrTestCaseJ4 {
       //  We do this via relying on EmbeddedSolrServer to keep the core open as it works with
       //  this streaming callback mechanism.
       var longRequestLatch = new CountDownLatch(1);
+      System.out.println("new Thread(...) call");
       var thread =
           new Thread("longRequest") {
             @Override

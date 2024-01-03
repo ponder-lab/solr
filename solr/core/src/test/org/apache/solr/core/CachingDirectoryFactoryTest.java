@@ -74,7 +74,7 @@ public class CachingDirectoryFactoryTest extends SolrTestCaseJ4 {
     }
 
     Thread.sleep(TEST_NIGHTLY ? 30000 : 4000);
-
+    System.out.println("new Thread(...) call");
     Thread closeThread =
         new Thread() {
           @Override

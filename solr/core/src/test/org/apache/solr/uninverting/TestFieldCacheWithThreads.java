@@ -82,6 +82,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     final CountDownLatch startingGun = new CountDownLatch(1);
     for (int t = 0; t < numThreads; t++) {
       final Random threadRandom = new Random(random().nextLong());
+      System.out.println("new Thread(...) call");
       Thread thread =
           new Thread() {
             @Override
@@ -214,6 +215,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     final int NUM_THREADS = TestUtil.nextInt(random(), 1, 10);
     Thread[] threads = new Thread[NUM_THREADS];
     for (int thread = 0; thread < NUM_THREADS; thread++) {
+    	System.out.println("new Thread(...) call");
       threads[thread] =
           new Thread() {
             @Override

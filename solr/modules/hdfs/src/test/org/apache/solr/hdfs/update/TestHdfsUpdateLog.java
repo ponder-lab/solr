@@ -99,7 +99,7 @@ public class TestHdfsUpdateLog extends SolrTestCaseJ4 {
     // we hammer on init in a background thread to make
     // sure we don't run into any filesystem already closed
     // problems (SOLR-7113)
-
+    System.out.println("new Thread(...) call");
     Thread thread =
         new Thread() {
           @Override
@@ -118,7 +118,7 @@ public class TestHdfsUpdateLog extends SolrTestCaseJ4 {
             }
           }
         };
-
+        System.out.println("new Thread(...) call");
     Thread thread2 =
         new Thread() {
           @Override

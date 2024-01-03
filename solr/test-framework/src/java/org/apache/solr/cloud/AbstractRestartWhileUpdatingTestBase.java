@@ -85,7 +85,7 @@ public abstract class AbstractRestartWhileUpdatingTestBase extends AbstractFullD
     int numThreads = random().nextInt(4) + 1;
 
     threads = new ArrayList<>(numThreads);
-
+    System.out.println("new Thread(...) call");
     Thread expireThread =
         new Thread("expireThread") {
           @Override

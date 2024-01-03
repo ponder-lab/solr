@@ -135,6 +135,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
 
     threads = new Thread[7];
     for (int i = 0; i < threads.length; i++) {
+    	System.out.println("new Thread(...) call");
       threads[i] =
           new Thread() {
 
@@ -157,6 +158,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
 
     threads2 = new Thread[3];
     for (int i = 0; i < threads2.length; i++) {
+    	System.out.println("new Thread(...) call");
       threads2[i] =
           new Thread() {
 

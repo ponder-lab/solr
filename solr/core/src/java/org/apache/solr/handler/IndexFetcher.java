@@ -1066,6 +1066,7 @@ public class IndexFetcher {
 
   private void reloadCore() {
     final CountDownLatch latch = new CountDownLatch(1);
+    System.out.println("new Thread(...) call");
     new Thread(
             () -> {
               try {

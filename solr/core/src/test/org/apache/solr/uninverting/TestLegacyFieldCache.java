@@ -239,6 +239,7 @@ public class TestLegacyFieldCache extends SolrTestCase {
               }
             });
     for (int threadIDX = 0; threadIDX < NUM_THREADS; threadIDX++) {
+    	System.out.println("new Thread(...) call");
       threads[threadIDX] =
           new Thread() {
             @Override

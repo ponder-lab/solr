@@ -218,6 +218,7 @@ public class ChaosMonkey {
       List<CloudJettyRunner> jetties = shardToJetty.get(key);
       for (CloudJettyRunner jetty : jetties) {
         Thread.sleep(pauseBetweenMs);
+        System.out.println("new Thread(...) call");
         Thread thread =
             new Thread(
                 () -> {
@@ -530,6 +531,7 @@ public class ChaosMonkey {
     // TODO: when kill leaders is on, lets kill a higher percentage of leaders
 
     stop = false;
+    System.out.println("new Thread(...) call");
     monkeyThread =
         new Thread(
             () -> {

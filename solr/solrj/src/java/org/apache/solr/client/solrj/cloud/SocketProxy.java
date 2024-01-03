@@ -114,6 +114,7 @@ public class SocketProxy {
     if (pauseAtStart) {
       acceptor.pause();
     }
+    System.out.println("new Thread(...) call");
     new Thread(null, acceptor, "SocketProxy-Acceptor-" + serverSocket.getLocalPort()).start();
     closed = new CountDownLatch(1);
   }

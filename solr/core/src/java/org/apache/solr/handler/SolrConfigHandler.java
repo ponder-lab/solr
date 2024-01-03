@@ -238,7 +238,8 @@ public class SolrConfigHandler extends RequestHandlerBase
               log.info("I already have the expected version {} of params", expectedVersion);
             }
             if (isStale && req.getCore().getResourceLoader() instanceof ZkSolrResourceLoader) {
-              new Thread(
+            	System.out.println("new Thread(...) call");
+            	new Thread(
                       () -> {
                         if (!reloadLock.tryLock()) {
                           log.info("Another reload is in progress . Not doing anything");
