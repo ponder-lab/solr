@@ -51,7 +51,6 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
 
   @Test
   public void testGetPutCompute() throws Exception {
-    System.out.println("Benjamin");
     Map<String, SummaryStatistics> getPutRatio = new HashMap<>();
     Map<String, SummaryStatistics> computeRatio = new HashMap<>();
     Map<String, SummaryStatistics> getPutTime = new HashMap<>();
