@@ -1,4 +1,4 @@
-name: Solr Core Cache Performance Test
+name: Solr Core Performance Test
 
 on:
   push:
@@ -8,12 +8,12 @@ on:
     branches:
       - 'main'
     paths:
-      - '.github/workflows/solr-core-cacheperf-test.yml'
+      - '.github/workflows/solr-core-perf-test.yml'
       - 'solr/core/**'
 
 jobs:
   test:
-    name: Run Solr Core Cache Perf Test
+    name: Run Solr Core Perf Test
 
     runs-on: ubuntu-latest
 
@@ -39,5 +39,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-solrj-
           ${{ runner.os }}-gradle-
-    - name: Test the Solr Core Cache Performance
+    - name: Test the Solr Cache Core Performance
       run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.search.TestSolrCachePerf
+    - name: Test the Solr Search Core Performance
+      run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.search.TestSearchPerf
+    - name: Test the Solr Writer Core Performance
+      run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.request.TestWriterPerf
+    - name: Test the Solr Core Indexing Performance
+      run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.update.TestIndexingPerformance
+    - name: Test the Solr Core Configuration Loading Performance
+      run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.core.TestConfLoadPerf
