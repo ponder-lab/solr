@@ -32,6 +32,7 @@ import org.apache.solr.response.QueryResponseWriter;
 import org.apache.solr.response.SolrQueryResponse;
 import org.apache.solr.util.RTimer;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -215,18 +216,15 @@ public class TestWriterPerf extends SolrTestCaseJ4 {
 
     double decodeTime = timer.getTime();
 
-    if (log.isInfoEnabled()) {
-      log.info(
-          "writer {}, size={}, encodeRate={} decodeRate={}",
-          writerName,
-          out.size(),
-          (encIter * 1000L / encodeTime),
-          (decIter * 1000L / decodeTime));
+    if (true) {
+      String s = "writer " + writerName + ", size=" + out.size() + ", encodeRate=" + (encIter * 1000L / encodeTime) + ", decodeRate=" + (decIter * 1000L / decodeTime);
+      System.out.println(s);
     }
 
     req.close();
   }
 
+  @Test
   public void testPerf() throws Exception {
     makeIndex();
 
