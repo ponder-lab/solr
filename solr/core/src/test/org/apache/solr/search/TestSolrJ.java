@@ -78,7 +78,6 @@ public class TestSolrJ extends SolrTestCaseJ4 {
     for (int threadNum = 0; threadNum < nProducers; threadNum++) {
       final int base = threadNum * docsPerThread;
 
-      System.out.println("new Thread(...) called");
       threads[threadNum] =
           new Thread("add-thread" + i) {
             @Override
