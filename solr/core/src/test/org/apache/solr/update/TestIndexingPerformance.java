@@ -26,6 +26,7 @@ import org.apache.solr.request.SolrQueryRequest;
 import org.apache.solr.util.RTimer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,6 +61,7 @@ public class TestIndexingPerformance extends SolrTestCaseJ4 {
 
   private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @Test
   public void testIndexingPerf() throws IOException {
     int iter = 1000;
     String iterS = System.getProperty("iter");
@@ -127,8 +129,9 @@ public class TestIndexingPerformance extends SolrTestCaseJ4 {
       log.info("doc={}", Arrays.toString(fields));
     }
     double elapsed = timer.getTime();
-    if (log.isInfoEnabled()) {
-      log.info("iter={} time={} throughput={}", iter, elapsed, ((long) iter * 1000) / elapsed);
+    if (true) {
+      // log.info("iter={} time={} throughput={}", iter, elapsed, ((long) iter * 1000) / elapsed);
+      System.out.println("iter=" + iter + ", time=" +  elapsed + ", throughput=" + ((long) iter * 1000) / elapsed);
     }
 
     // discard all the changes
