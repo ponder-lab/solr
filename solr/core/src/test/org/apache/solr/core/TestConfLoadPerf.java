@@ -37,7 +37,7 @@ import org.junit.Ignore;
 
 public class TestConfLoadPerf extends SolrTestCaseJ4 {
 
-  @Ignore
+  // @Ignore
   @SuppressForbidden(reason = "Needed to provide time for tests.")
   public void testPerf() throws Exception {
     String sourceHome = ExternalPaths.SOURCE_HOME;
