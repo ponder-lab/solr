@@ -542,12 +542,8 @@ public class ZkTestServer {
       }
       Thread parentThread = Thread.currentThread();
       // we don't call super.distribSetUp
-      zooThread =
-          new Thread("ZkTestServer Run Thread") {
-
-            @Override
-            public void run() {
-              ServerConfig config =
+      zooThread = Thread.ofVirtual().name("ZkTestServer Run Thread").unstarted(() -> {
+        ServerConfig config =
                   new ServerConfig() {
 
                     {
@@ -570,8 +566,7 @@ public class ZkTestServer {
                 zooError.set(t);
                 parentThread.interrupt();
               }
-            }
-          };
+      });
 
       ObjectReleaseTracker.track(zooThread);
       zooThread.start();

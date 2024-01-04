@@ -136,10 +136,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     threads = new Thread[7];
     for (int i = 0; i < threads.length; i++) {
       threads[i] =
-          new Thread() {
-
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               for (int i = 0; i < 30; i++) {
                 // h.update(adoc("id", Integer.toString(1+ i), "v_t",
                 // "Goodbye Dude girl!"));
@@ -149,8 +146,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
                   throw new RuntimeException(e);
                 }
               }
-            }
-          };
+          });
 
       threads[i].setName("testThread-" + i);
     }
@@ -158,10 +154,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     threads2 = new Thread[3];
     for (int i = 0; i < threads2.length; i++) {
       threads2[i] =
-          new Thread() {
-
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               for (int i = 0; i < 10; i++) {
                 // h.update(adoc("id" , Integer.toString(1+ i + 10000), "v_t",
                 // "Goodbye Dude girl"));
@@ -173,8 +166,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
                   throw new RuntimeException(e);
                 }
               }
-            }
-          };
+          });
 
       threads2[i].setName("testThread2-" + i);
     }

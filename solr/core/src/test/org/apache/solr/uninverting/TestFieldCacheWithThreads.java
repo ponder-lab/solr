@@ -83,9 +83,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     for (int t = 0; t < numThreads; t++) {
       final Random threadRandom = new Random(random().nextLong());
       Thread thread =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               try {
                 startingGun.await();
                 int iters = atLeast(1000);
@@ -139,8 +137,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
               } catch (Exception e) {
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
       thread.start();
       threads.add(thread);
     }
@@ -215,9 +212,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     Thread[] threads = new Thread[NUM_THREADS];
     for (int thread = 0; thread < NUM_THREADS; thread++) {
       threads[thread] =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               Random random = random();
               final SortedDocValues stringDVDirect;
               final NumericDocValues docIDToID;
@@ -254,8 +249,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
                   }
                 }
               }
-            }
-          };
+          });
       threads[thread].start();
     }
 

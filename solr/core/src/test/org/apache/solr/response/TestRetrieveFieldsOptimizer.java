@@ -207,9 +207,7 @@ public class TestRetrieveFieldsOptimizer extends SolrTestCaseJ4 {
     Thread threads[] = new Thread[numThreads];
     for (int idx = 0; idx < numThreads; idx++) {
       threads[idx] =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               try {
                 checkFetchSources(ALL_FROM_DV);
                 checkFetchSources(ALL_FROM_STORED);
@@ -217,8 +215,7 @@ public class TestRetrieveFieldsOptimizer extends SolrTestCaseJ4 {
               } catch (Exception e) {
                 fail("Failed with exception " + e.getMessage());
               }
-            }
-          };
+          });
       threads[idx].start();
     }
     for (int idx = 0; idx < numThreads; idx++) {

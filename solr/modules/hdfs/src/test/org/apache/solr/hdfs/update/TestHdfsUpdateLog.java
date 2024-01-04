@@ -101,9 +101,7 @@ public class TestHdfsUpdateLog extends SolrTestCaseJ4 {
     // problems (SOLR-7113)
 
     Thread thread =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofVirtual().unstarted(() -> {
             int cnt = 0;
             while (true) {
               ulog.init(uhandler, req.getCore());
@@ -116,13 +114,10 @@ public class TestHdfsUpdateLog extends SolrTestCaseJ4 {
                 break;
               }
             }
-          }
-        };
+          });
 
     Thread thread2 =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofVirtual().unstarted(() -> {
             int cnt = 0;
             while (true) {
               assertU(adoc("id", Integer.toString(cnt)));
@@ -135,8 +130,7 @@ public class TestHdfsUpdateLog extends SolrTestCaseJ4 {
                 break;
               }
             }
-          }
-        };
+          });
 
     thread.start();
     thread2.start();

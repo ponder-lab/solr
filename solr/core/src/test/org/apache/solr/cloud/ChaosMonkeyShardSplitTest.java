@@ -90,9 +90,7 @@ public class ChaosMonkeyShardSplitTest extends ShardSplitTest {
       commit();
 
       indexThread =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               int max = atLeast(401);
               for (int id = 101; id < max; id++) {
                 try {
@@ -103,8 +101,7 @@ public class ChaosMonkeyShardSplitTest extends ShardSplitTest {
                   log.error("Exception while adding doc", e);
                 }
               }
-            }
-          };
+          });
       indexThread.start();
 
       // kill the leader

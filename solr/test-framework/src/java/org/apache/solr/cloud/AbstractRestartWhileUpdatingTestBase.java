@@ -87,26 +87,23 @@ public abstract class AbstractRestartWhileUpdatingTestBase extends AbstractFullD
     threads = new ArrayList<>(numThreads);
 
     Thread expireThread =
-        new Thread("expireThread") {
-          @Override
-          public void run() {
-            while (!stopExpire) {
-              try {
-                Thread.sleep(random().nextInt(15000));
-              } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-              }
-
-              //          try {
-              //            chaosMonkey.expireRandomSession();
-              //          } catch (KeeperException e) {
-              //            throw new RuntimeException(e);
-              //          } catch (InterruptedException e) {
-              //            throw new RuntimeException(e);
-              //          }
+        Thread.ofVirtual().name("expireThread").unstarted(() -> {
+          while (!stopExpire) {
+            try {
+              Thread.sleep(random().nextInt(15000));
+            } catch (InterruptedException e) {
+              throw new RuntimeException(e);
             }
+
+            //          try {
+            //            chaosMonkey.expireRandomSession();
+            //          } catch (KeeperException e) {
+            //            throw new RuntimeException(e);
+            //          } catch (InterruptedException e) {
+            //            throw new RuntimeException(e);
+            //          }
           }
-        };
+        });
 
     //  Currently unused
     //  expireThread.start();

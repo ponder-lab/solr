@@ -185,9 +185,7 @@ public class AtomicUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     for (int i = 0; i < 10; i++) {
       int index = random().nextInt(5);
       Thread t =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               ModifiableSolrParams params =
                   new ModifiableSolrParams()
                       .add("processor", "atomic")
@@ -210,8 +208,7 @@ public class AtomicUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
                     .processAdd(cmd);
               } catch (IOException e) {
               }
-            }
-          };
+          });
       threads.add(t);
       t.start();
       finalCount += index; // int_i
