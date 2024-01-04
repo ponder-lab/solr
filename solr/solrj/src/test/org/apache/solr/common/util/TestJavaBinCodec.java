@@ -536,7 +536,7 @@ public class TestJavaBinCodec extends SolrTestCaseJ4 {
   private static void runInThreads(int count, Runnable runnable) throws InterruptedException {
     ArrayList<Thread> t = new ArrayList<>();
     for (int i = 0; i < count; i++) {
-      t.add(Thread.ofVirtual.unstarted(runnable));
+      t.add(Thread.ofVirtual().unstarted(runnable));
     }
     for (Thread thread : t) thread.start();
     for (Thread thread : t) thread.join();

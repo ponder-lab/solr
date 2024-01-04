@@ -198,7 +198,7 @@ public class TestStressVersions extends TestRTGBase {
 
     for (int i = 0; i < nReadThreads; i++) {
       Thread thread =
-          Thread.ofVirtual.name("READER" + i).unstarted(() -> {
+          Thread.ofVirtual().name("READER" + i).unstarted(() -> {
             Random rand = new Random(random().nextInt());
               try {
                 while (operations.decrementAndGet() >= 0) {

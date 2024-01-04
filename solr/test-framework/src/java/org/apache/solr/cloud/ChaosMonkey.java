@@ -219,7 +219,7 @@ public class ChaosMonkey {
       for (CloudJettyRunner jetty : jetties) {
         Thread.sleep(pauseBetweenMs);
         Thread thread =
-            Thread.ofVirtual.name("ChaosMonkey").unstarted(
+            Thread.ofVirtual().name("ChaosMonkey").unstarted(
                 () -> {
                   try {
                     stopJetty(jetty);
