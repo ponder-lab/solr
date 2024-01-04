@@ -106,12 +106,9 @@ public class TestStressRecovery extends TestRTGBase {
       final int threadNum = i;
 
       Thread thread =
-          new Thread("WRITER" + i) {
+          Thread.ofVirtual().name("WRITER" + i).unstarted(() -> {
             Random rand = new Random(random().nextInt());
             Semaphore writePermission = writePermissions[threadNum];
-
-            @Override
-            public void run() {
               try {
                 while (operations.get() > 0) {
                   writePermission.acquire();
@@ -283,19 +280,15 @@ public class TestStressRecovery extends TestRTGBase {
                 operations.set(-1L);
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
 
       threads.add(thread);
     }
 
     for (int i = 0; i < nReadThreads; i++) {
       Thread thread =
-          new Thread("READER" + i) {
+          Thread.ofVirtual().name("READER" + i).unstarted(() -> {
             Random rand = new Random(random().nextInt());
-
-            @Override
-            public void run() {
               try {
                 while (operations.get() > 0) {
                   // throttle reads (don't completely stop)
@@ -361,8 +354,7 @@ public class TestStressRecovery extends TestRTGBase {
                 operations.set(-1L);
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
 
       threads.add(thread);
     }
