@@ -521,7 +521,7 @@ public class DeleteReplicaTest extends SolrCloudTestCase {
     for (int i = 0; i < threads.length; i++) {
       int finalI = i;
       threads[i] =
-          new Thread(
+          Thread.ofVirtual().unstarted(
               () -> {
                 int doc = finalI * 10000;
                 while (!closed.get()) {

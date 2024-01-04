@@ -175,13 +175,12 @@ public class ZkDistributedLockTest extends SolrTestCaseJ4 {
 
     // Wait for acquisition of the write lock on another thread (and be notified via a latch)
     final CountDownLatch latch = new CountDownLatch(1);
-    new Thread(
+    Thread.ofVirtual().start(
             () -> {
               writeLock.waitUntilAcquired();
               // countDown() will not be called if waitUntilAcquired() threw any kind of exception
               latch.countDown();
-            })
-        .start();
+            });
 
     // Wait for the thread to start and to get blocked in waitUntilAcquired() (thread start could
     // have been checked more reliably using another latch, and verifying the thread is in

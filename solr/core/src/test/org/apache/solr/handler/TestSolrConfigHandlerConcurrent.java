@@ -69,7 +69,7 @@ public class TestSolrConfigHandlerConcurrent extends AbstractFullDistribZkTestBa
         List<String> errs = new ArrayList<>();
         collectErrors.add(errs);
         Thread t =
-            new Thread(
+            Thread.ofVirtual().unstarted(
                 () -> {
                   try {
                     invokeBulkCall((String) e.getKey(), errs);

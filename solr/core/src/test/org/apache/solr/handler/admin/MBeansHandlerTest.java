@@ -186,7 +186,7 @@ public class MBeansHandlerTest extends SolrTestCaseJ4 {
         "foo");
     runSnapshots = true;
     Thread modifier =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               int i = 0;
               while (runSnapshots) {
@@ -200,7 +200,7 @@ public class MBeansHandlerTest extends SolrTestCaseJ4 {
               }
             });
     Thread reader =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               while (runSnapshots) {
                 try {

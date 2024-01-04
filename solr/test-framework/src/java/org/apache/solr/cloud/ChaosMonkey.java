@@ -219,15 +219,14 @@ public class ChaosMonkey {
       for (CloudJettyRunner jetty : jetties) {
         Thread.sleep(pauseBetweenMs);
         Thread thread =
-            new Thread(
+            Thread.ofVirtual.name("ChaosMonkey").unstarted(
                 () -> {
                   try {
                     stopJetty(jetty);
                   } catch (Exception e) {
                     throw new RuntimeException(e);
                   }
-                },
-                "ChaosMonkey");
+                });
         jettyThreads.add(thread);
         thread.start();
       }
@@ -531,7 +530,7 @@ public class ChaosMonkey {
 
     stop = false;
     monkeyThread =
-        new Thread(
+        Thread.ofVirtual().name("ChaosMonkey").unstarted(
             () -> {
               while (!stop) {
                 try {
@@ -558,8 +557,7 @@ public class ChaosMonkey {
                       + " and caused "
                       + connloss
                       + " connection losses");
-            },
-            "ChaosMonkey");
+            });
     monkeyThread.start();
   }
 

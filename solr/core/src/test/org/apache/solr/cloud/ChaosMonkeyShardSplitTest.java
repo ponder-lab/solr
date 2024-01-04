@@ -138,7 +138,7 @@ public class ChaosMonkeyShardSplitTest extends ShardSplitTest {
       // Kill the overseer
       // TODO: Actually kill the Overseer instance
       killer = new OverseerRestarter(zkServer.getZkAddress());
-      killerThread = new Thread(killer);
+      killerThread = Thread.ofVirtual().unstarted(killer);
       killerThread.start();
       killCounter.incrementAndGet();
 

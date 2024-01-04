@@ -1066,7 +1066,7 @@ public class IndexFetcher {
 
   private void reloadCore() {
     final CountDownLatch latch = new CountDownLatch(1);
-    new Thread(
+    Thread.ofVirtual().name("CoreReload").start(
             () -> {
               try {
                 solrCore.getCoreContainer().reload(solrCore.getName(), solrCore.uniqueId);
@@ -1075,9 +1075,7 @@ public class IndexFetcher {
               } finally {
                 latch.countDown();
               }
-            },
-            "CoreReload")
-        .start();
+            });
     try {
       latch.await();
     } catch (InterruptedException e) {

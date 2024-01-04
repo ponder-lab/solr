@@ -177,7 +177,7 @@ public class TestReplicationHandlerDiskOverFlow extends SolrTestCaseJ4 {
           }
         };
 
-    new Thread(
+    Thread.ofVirtual().start(
             () -> {
               try {
                 for (int i = 0; i < 100; i++) {
@@ -209,8 +209,7 @@ public class TestReplicationHandlerDiskOverFlow extends SolrTestCaseJ4 {
                 log.error("Query Thread Failure", e);
                 threadFailures.add(e);
               }
-            })
-        .start();
+            });
 
     QueryResponse response =
         followerClient.query(

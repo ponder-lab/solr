@@ -238,7 +238,7 @@ public class SolrConfigHandler extends RequestHandlerBase
               log.info("I already have the expected version {} of params", expectedVersion);
             }
             if (isStale && req.getCore().getResourceLoader() instanceof ZkSolrResourceLoader) {
-              new Thread(
+              Thread.ofVirtual().name(SolrConfigHandler.class.getSimpleName() + "-refreshconf").start(
                       () -> {
                         if (!reloadLock.tryLock()) {
                           log.info("Another reload is in progress . Not doing anything");
@@ -255,9 +255,7 @@ public class SolrConfigHandler extends RequestHandlerBase
                         } finally {
                           reloadLock.unlock();
                         }
-                      },
-                      SolrConfigHandler.class.getSimpleName() + "-refreshconf")
-                  .start();
+                      });
             } else {
               if (log.isInfoEnabled()) {
                 log.info(

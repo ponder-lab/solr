@@ -660,7 +660,7 @@ public abstract class BaseDistributedSearchTestCase extends SolrTestCaseJ4 {
       Thread[] threads = new Thread[nThreads];
       for (int i = 0; i < threads.length; i++) {
         threads[i] =
-            new Thread(
+            Thread.ofVirtual().name("StressRunner").unstarted(
                 () -> {
                   for (int j = 0; j < stress; j++) {
                     int which = r.nextInt(clients.size());
@@ -674,8 +674,7 @@ public abstract class BaseDistributedSearchTestCase extends SolrTestCaseJ4 {
                       throw new RuntimeException(e);
                     }
                   }
-                },
-                "StressRunner");
+                });
         threads[i].start();
       }
 

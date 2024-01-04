@@ -75,7 +75,7 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
     final CountDownLatch doneWithTestLatch = new CountDownLatch(1);
     final Object monitor = new TestMonitorStruct();
     final Thread ownerT =
-        new Thread(
+        Thread.ofVirtual().name("test-thread-monitor-owner").unstarted(
             () -> {
               synchronized (monitor) {
                 lockIsHeldLatch.countDown();
@@ -88,20 +88,18 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
                   failures.add("ownerT: " + ie);
                 }
               }
-            },
-            "test-thread-monitor-owner");
+            });
 
     // only used if checkBlockedThreadViaPolling
     // don't start until after lockIsHeldLatch fires
     final Thread blockedT =
-        new Thread(
+        Thread.ofVirtual().name("test-thread-monitor-blocked").unstarted(
             () -> {
               log.info("blockedT waiting for monitor...");
               synchronized (monitor) {
                 log.info("monitor now unblocked");
               }
-            },
-            "test-thread-monitor-blocked");
+            });
 
     try {
       ownerT.start();
@@ -198,7 +196,7 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
     final CountDownLatch doneWithTestLatch = new CountDownLatch(1);
     final ReentrantLock lock = new ReentrantLock();
     final Thread ownerT =
-        new Thread(
+        Thread.ofVirtual().name("test-thread-sync-lock-owner").unstarted(
             () -> {
               lock.lock();
               try {
@@ -214,13 +212,12 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
               } finally {
                 lock.unlock();
               }
-            },
-            "test-thread-sync-lock-owner");
+            });
 
     // only used if checkWaitingThreadViaPolling
     // don't start until after lockIsHeldLatch fires
     final Thread blockedT =
-        new Thread(
+        Thread.ofVirtual().name("test-thread-sync-lock-blocked").unstarted(
             () -> {
               log.info("blockedT waiting for lock...");
               lock.lock();
@@ -229,8 +226,7 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
               } finally {
                 lock.unlock();
               }
-            },
-            "test-thread-sync-lock-blocked");
+            });
     try {
       ownerT.start();
       if (!lockIsHeldLatch.await(30, TimeUnit.SECONDS)) {

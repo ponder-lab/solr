@@ -117,7 +117,7 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
       Set<Exception> exceptions = ConcurrentHashMap.newKeySet();
       for (int i = 0; i < numThreads; i++) {
         Thread t =
-            new Thread(
+            Thread.ofVirtual().unstarted(
                 () -> {
                   try {
                     startLatch.await();

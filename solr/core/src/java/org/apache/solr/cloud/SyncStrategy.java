@@ -352,7 +352,7 @@ public class SyncStrategy {
       final ZkNodeProps leaderProps, final String baseUrl, final String coreName)
       throws SolrServerException, IOException {
     Thread thread =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               if (isClosed) {
                 log.info("We have been closed, won't request recovery");

@@ -531,7 +531,7 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
         };
 
     Thread connLossThread =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               while (!stopStress) {
                 try {

@@ -156,7 +156,7 @@ public class SnapShooter {
   }
 
   protected void deleteSnapAsync(final ReplicationHandler replicationHandler) {
-    new Thread(() -> deleteNamedSnapshot(replicationHandler), "DeleteNamedSnapshot").start();
+    Thread.ofVirtual().name("DeleteNamedSnapshot").start(() -> deleteNamedSnapshot(replicationHandler));
   }
 
   public void validateCreateSnapshot() throws IOException {
@@ -248,7 +248,7 @@ public class SnapShooter {
   public void createSnapAsync(final int numberToKeep, Consumer<NamedList<?>> result)
       throws IOException {
     // TODO should use Solr's ExecutorUtil
-    new Thread(
+    Thread.ofVirtual().name("CreateSnapshot").start(
             () -> {
               NamedList<Object> snapShootDetails = new SimpleOrderedMap<>();
               try {
@@ -266,9 +266,7 @@ public class SnapShooter {
                 }
               }
               if (null != snapShootDetails) result.accept(snapShootDetails);
-            },
-            "CreateSnapshot")
-        .start();
+            });
   }
 
   /**

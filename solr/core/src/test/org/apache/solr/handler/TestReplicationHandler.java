@@ -1498,7 +1498,7 @@ public class TestReplicationHandler extends SolrTestCaseJ4 {
 
     // Add a few more docs in the leader. Just to make sure that we are replicating the correct
     // index point. These extra docs should not get replicated
-    new Thread(new AddExtraDocs(leaderClient, totalDocs)).start();
+    Thread.ofVirtual().start(new AddExtraDocs(leaderClient, totalDocs));
 
     // Wait and make sure that it actually replicated correctly.
     NamedList<Object> followerQueryRsp = rQuery(totalDocs, "*:*", followerClient);
