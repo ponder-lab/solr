@@ -155,7 +155,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     for (int i = 0; i < threads2.length; i++) {
       threads2[i] =
           Thread.ofVirtual().unstarted(() -> {
-              for (int j = 0; j < 10; i++) {
+              for (int j = 0; j < 10; j++) {
                 // h.update(adoc("id" , Integer.toString(1+ j + 10000), "v_t",
                 // "Goodbye Dude girl"));
                 // h.update(commit());
