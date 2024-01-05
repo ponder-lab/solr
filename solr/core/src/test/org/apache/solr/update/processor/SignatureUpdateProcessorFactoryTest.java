@@ -137,11 +137,11 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     for (int i = 0; i < threads.length; i++) {
       threads[i] =
           Thread.ofVirtual().unstarted(() -> {
-              for (int i = 0; i < 30; i++) {
-                // h.update(adoc("id", Integer.toString(1+ i), "v_t",
+              for (int j = 0; j < 30; j++) {
+                // h.update(adoc("id", Integer.toString(1+ j), "v_t",
                 // "Goodbye Dude girl!"));
                 try {
-                  addDoc(adoc("id", Integer.toString(1 + i), "v_t", "Goodbye Dude girl!"));
+                  addDoc(adoc("id", Integer.toString(1 + j), "v_t", "Goodbye Dude girl!"));
                 } catch (Exception e) {
                   throw new RuntimeException(e);
                 }
@@ -155,12 +155,12 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     for (int i = 0; i < threads2.length; i++) {
       threads2[i] =
           Thread.ofVirtual().unstarted(() -> {
-              for (int i = 0; i < 10; i++) {
-                // h.update(adoc("id" , Integer.toString(1+ i + 10000), "v_t",
+              for (int j = 0; j < 10; i++) {
+                // h.update(adoc("id" , Integer.toString(1+ j + 10000), "v_t",
                 // "Goodbye Dude girl"));
                 // h.update(commit());
                 try {
-                  addDoc(adoc("id", Integer.toString(1 + i), "v_t", "Goodbye Dude girl!"));
+                  addDoc(adoc("id", Integer.toString(1 + j), "v_t", "Goodbye Dude girl!"));
                   addDoc(commit());
                 } catch (Exception e) {
                   throw new RuntimeException(e);

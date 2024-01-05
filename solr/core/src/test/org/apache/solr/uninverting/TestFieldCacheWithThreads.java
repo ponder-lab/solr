@@ -213,7 +213,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     for (int thread = 0; thread < NUM_THREADS; thread++) {
       threads[thread] =
           Thread.ofVirtual().unstarted(() -> {
-              Random random = random();
+              Random random2 = random();
               final SortedDocValues stringDVDirect;
               final NumericDocValues docIDToID;
               try {
@@ -238,7 +238,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
               }
               while (System.nanoTime() < END_TIME) {
                 for (int iter = 0; iter < 100; iter++) {
-                  final int docID = random.nextInt(sr.maxDoc());
+                  final int docID = random2.nextInt(sr.maxDoc());
                   try {
                     SortedDocValues dvs = sr.getSortedDocValues("stringdv");
                     assertEquals(docID, dvs.advance(docID));
