@@ -286,7 +286,7 @@ public class MultiThreadedOCPTest extends AbstractFullDistribZkTestBase {
   public void testLongAndShortRunningParallelApiCalls()
       throws InterruptedException, IOException, SolrServerException {
     Thread indexThread =
-        Thread.ofVirtual().unstarted(() -> {
+        Thread.ofPlatform().unstarted(() -> {
             Random random = random();
             int max = atLeast(random, 200);
             for (int id = 101; id < max; id++) {
