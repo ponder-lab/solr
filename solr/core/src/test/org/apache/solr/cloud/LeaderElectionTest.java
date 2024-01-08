@@ -484,7 +484,7 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
     scheduler.schedule(thread1, 0, TimeUnit.MILLISECONDS);
 
     Thread scheduleThread =
-        Thread.ofVirtual().unstarted(() -> {
+        Thread.ofPlatform().unstarted(() -> {
             int count = atLeast(5);
             for (int i = 1; i < count; i++) {
               int launchIn = random().nextInt(500);
