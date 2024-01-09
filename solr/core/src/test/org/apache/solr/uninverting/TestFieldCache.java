@@ -383,7 +383,7 @@ public class TestFieldCache extends SolrTestCase {
             });
     for (int threadIDX = 0; threadIDX < NUM_THREADS; threadIDX++) {
       threads[threadIDX] =
-          Thread.ofVirtual().unstarted(() -> {
+          Thread.ofPlatform().unstarted(() -> {
               try {
                 while (!failed.get()) {
                   final int op = random().nextInt(3);
