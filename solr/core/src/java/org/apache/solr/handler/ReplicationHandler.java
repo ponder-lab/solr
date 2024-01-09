@@ -391,7 +391,8 @@ public class ReplicationHandler extends RequestHandlerBase
               IndexFetchResult result = doFetch(paramsCopy, false);
               results[0] = result;
             });
-    fetchThread.setDaemon(false);
+    if (!fetchThread.isVirtual())
+        fetchThread.setDaemon(false);
     fetchThread.start();
     if (solrParams.getBool(WAIT, false)) {
       fetchThread.join();
