@@ -83,7 +83,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     for (int t = 0; t < numThreads; t++) {
       final Random threadRandom = new Random(random().nextLong());
       Thread thread =
-          Thread.ofVirtual().unstarted(() -> {
+          Thread.ofPlatform().unstarted(() -> {
               try {
                 startingGun.await();
                 int iters = atLeast(1000);
@@ -212,7 +212,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     Thread[] threads = new Thread[NUM_THREADS];
     for (int thread = 0; thread < NUM_THREADS; thread++) {
       threads[thread] =
-          Thread.ofVirtual().unstarted(() -> {
+          Thread.ofPlatform().unstarted(() -> {
               Random random2 = random();
               final SortedDocValues stringDVDirect;
               final NumericDocValues docIDToID;
