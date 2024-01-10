@@ -207,7 +207,7 @@ public class TestRetrieveFieldsOptimizer extends SolrTestCaseJ4 {
     Thread threads[] = new Thread[numThreads];
     for (int idx = 0; idx < numThreads; idx++) {
       threads[idx] =
-          Thread.ofVirtual().unstarted(() -> {
+          Thread.ofPlatform().unstarted(() -> {
               try {
                 checkFetchSources(ALL_FROM_DV);
                 checkFetchSources(ALL_FROM_STORED);
