@@ -75,7 +75,7 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
     final CountDownLatch doneWithTestLatch = new CountDownLatch(1);
     final Object monitor = new TestMonitorStruct();
     final Thread ownerT =
-        Thread.ofVirtual().name("test-thread-monitor-owner").unstarted(
+        Thread.ofPlatform().name("test-thread-monitor-owner").unstarted(
             () -> {
               synchronized (monitor) {
                 lockIsHeldLatch.countDown();
@@ -196,7 +196,7 @@ public class ThreadDumpHandlerTest extends SolrTestCaseJ4 {
     final CountDownLatch doneWithTestLatch = new CountDownLatch(1);
     final ReentrantLock lock = new ReentrantLock();
     final Thread ownerT =
-        Thread.ofVirtual().name("test-thread-sync-lock-owner").unstarted(
+        Thread.ofPlatform().name("test-thread-sync-lock-owner").unstarted(
             () -> {
               lock.lock();
               try {
