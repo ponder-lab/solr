@@ -11,6 +11,10 @@ on:
       - '.github/workflows/solr-core-test.yml'
       - 'solr/core/**'
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Run Solr Core Tests
