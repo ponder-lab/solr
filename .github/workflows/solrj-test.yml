@@ -11,10 +11,6 @@ on:
       - '.github/workflows/solrj-test.yml'
       - 'solr/solrj/**'
 
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   test:
     name: Run SolrJ Tests
