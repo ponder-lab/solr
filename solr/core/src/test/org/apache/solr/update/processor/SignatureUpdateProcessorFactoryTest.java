@@ -136,7 +136,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     threads = new Thread[7];
     for (int i = 0; i < threads.length; i++) {
       threads[i] =
-          Thread.ofVirtual().unstarted(() -> {
+          Thread.ofPlatform().unstarted(() -> {
               for (int j = 0; j < 30; j++) {
                 // h.update(adoc("id", Integer.toString(1+ j), "v_t",
                 // "Goodbye Dude girl!"));
@@ -154,7 +154,7 @@ public class SignatureUpdateProcessorFactoryTest extends SolrTestCaseJ4 {
     threads2 = new Thread[3];
     for (int i = 0; i < threads2.length; i++) {
       threads2[i] =
-          Thread.ofVirtual().unstarted(() -> {
+          Thread.ofPlatform().unstarted(() -> {
               for (int j = 0; j < 10; j++) {
                 // h.update(adoc("id" , Integer.toString(1+ j + 10000), "v_t",
                 // "Goodbye Dude girl"));
