@@ -467,16 +467,17 @@ public class TestJavaBinCodec extends SolrTestCaseJ4 {
     bos.close();
   }
 
-  private void testPerf() throws InterruptedException {
+  @Test
+  public void testPerf() throws InterruptedException {
     final ArrayList<StringBytes> l = new ArrayList<>();
     Cache<StringBytes, String> cache = null;
-    /* cache = new ConcurrentLRUCache<JavaBinCodec.StringBytes,String>(10000, 9000, 10000, 1000, false, true, null){
+    cache = new ConcurrentLRUCache<StringBytes,String>(10000, 9000, 10000, 1000, false, true, null){
       @Override
-      public String put(JavaBinCodec.StringBytes key, String val) {
+      public String put(StringBytes key, String val) {
         l.add(key);
         return super.put(key, val);
       }
-    };*/
+    };
     Runtime.getRuntime().gc();
     printMem("before cache init");
 
