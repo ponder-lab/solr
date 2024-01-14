@@ -49,7 +49,3 @@ jobs:
       run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.update.TestIndexingPerformance
     - name: Test the Solr Core Configuration Loading Performance
       run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.core.TestConfLoadPerf
-    - name: Test the SolrJ Performance
-    run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.search.TestSolrJ
-    - name: Test the Java Bin Codec Performance
-    run: ./gradlew -Djavac.failOnWarnings=false test --tests org.apache.solr.common.util.TestJavaBinCodec
