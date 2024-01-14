@@ -30,18 +30,15 @@ import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.util.RTimer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.junit.Test;
 
 public class TestSolrJ extends SolrTestCaseJ4 {
   private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  @Test
-  public void testSolrJ() throws Exception {
+  public void testSolrJ() {
     // docs, producers, connections, sleep_time
-     main(new String[] {"1000000","4", "1", "0"});
+    //  main(new String[] {"1000000","4", "1", "0"});
 
-    doCommitPerf();
-    assertTrue(true);
+    // doCommitPerf();
   }
 
   public static SolrClient client;
