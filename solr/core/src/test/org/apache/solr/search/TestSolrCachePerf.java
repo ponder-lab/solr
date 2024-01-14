@@ -57,13 +57,14 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
     Map<String, SummaryStatistics> computeTime = new HashMap<>();
     // warm-up
     int threads = 10;
+    double avg = 0.0;
     for (int i = 0; i < 10; i++) {
-      doTestGetPutCompute(new HashMap<>(), new HashMap<>(), threads, false);
-      doTestGetPutCompute(new HashMap<>(), new HashMap<>(), threads, true);
+      avg += doTestGetPutCompute(new HashMap<>(), new HashMap<>(), threads, false) / 220.0;
+      avg += doTestGetPutCompute(new HashMap<>(), new HashMap<>(), threads, true) / 220.0;
     }
     for (int i = 0; i < 100; i++) {
-      doTestGetPutCompute(getPutRatio, getPutTime, threads, false);
-      doTestGetPutCompute(computeRatio, computeTime, threads, true);
+      avg += doTestGetPutCompute(getPutRatio, getPutTime, threads, false) / 220.0;
+      avg += doTestGetPutCompute(computeRatio, computeTime, threads, true) / 220.0;
     }
     computeRatio.forEach(
         (type, computeStats) -> {
@@ -74,6 +75,7 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
               getPutStats.getMean(),
               0.0001);
         });
+    System.out.println("avg = " + avg);
   }
 
   private void assertGreaterThanOrEqual(
@@ -90,12 +92,13 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
   static final String VALUE = "foo";
 
   @SuppressWarnings({"rawtypes"})
-  private void doTestGetPutCompute(
+  private double doTestGetPutCompute(
       Map<String, SummaryStatistics> ratioStats,
       Map<String, SummaryStatistics> timeStats,
       int numThreads,
       boolean useCompute)
       throws Exception {
+    double runtime = 0.0;
     for (Class<? extends SolrCache> clazz : IMPLS) {
       SolrMetricManager metricManager = new SolrMetricManager();
       @SuppressWarnings({"unchecked"})
@@ -161,8 +164,10 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
       Map<String, Object> metrics = cache.getSolrMetricsContext().getMetricsSnapshot();
       perImplRatio.addValue(Double.parseDouble(String.valueOf(metrics.get("CACHE.foo.hitratio"))));
       perImplTime.addValue((double) (stopTime - startTime));
-      System.out.println((double) (stopTime - startTime)); // For initial testing only; remove before doing "official" testing
       cache.close();
+      System.out.println((double) (stopTime - startTime));
+      runtime += (double) (stopTime - startTime); // For initial testing only; remove before doing "official" testing
     }
+    return runtime;
   }
 }
