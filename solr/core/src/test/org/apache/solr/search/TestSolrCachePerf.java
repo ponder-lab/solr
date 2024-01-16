@@ -56,16 +56,20 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
     Map<String, SummaryStatistics> getPutTime = new HashMap<>();
     Map<String, SummaryStatistics> computeTime = new HashMap<>();
     // warm-up
+    System.out.println("===WARM UP START===");
     int threads = 10;
     double avg = 0.0;
     for (int i = 0; i < 10; i++) {
       avg += doTestGetPutCompute(new HashMap<>(), new HashMap<>(), threads, false) / 220.0;
       avg += doTestGetPutCompute(new HashMap<>(), new HashMap<>(), threads, true) / 220.0;
     }
+    System.out.println("===WARM UP END===");
+    System.out.println("===TEST BEGIN===");
     for (int i = 0; i < 100; i++) {
       avg += doTestGetPutCompute(getPutRatio, getPutTime, threads, false) / 220.0;
       avg += doTestGetPutCompute(computeRatio, computeTime, threads, true) / 220.0;
     }
+    System.out.println("===TEST END===");
     computeRatio.forEach(
         (type, computeStats) -> {
           SummaryStatistics getPutStats = getPutRatio.get(type);
