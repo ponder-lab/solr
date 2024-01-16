@@ -119,6 +119,7 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
       CountDownLatch stopLatch = new CountDownLatch(numThreads * NUM_KEYS);
       List<Thread> runners = new ArrayList<>();
       Set<Exception> exceptions = ConcurrentHashMap.newKeySet();
+      long startTime = System.nanoTime();
       for (int i = 0; i < numThreads; i++) {
         Thread t =
             new Thread(
@@ -151,7 +152,6 @@ public class TestSolrCachePerf extends SolrTestCaseJ4 {
         runners.add(t);
       }
       // fire them up
-      long startTime = System.nanoTime();
       startLatch.countDown();
       stopLatch.await();
       stop.set(true);
