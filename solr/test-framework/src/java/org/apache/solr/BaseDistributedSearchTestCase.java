@@ -41,6 +41,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -98,14 +99,7 @@ import org.slf4j.LoggerFactory;
 public abstract class BaseDistributedSearchTestCase extends SolrTestCaseJ4 {
 
   protected ExecutorService executor =
-      new ExecutorUtil.MDCAwareThreadPoolExecutor(
-          4,
-          Integer.MAX_VALUE,
-          15,
-          TimeUnit.SECONDS, // terminate idle threads after 15 sec
-          new SynchronousQueue<>(), // directly hand off tasks
-          new SolrNamedThreadFactory("BaseDistributedSearchTestCase"),
-          false);
+      Executors.newVirtualThreadPerTaskExecutor();
 
   // TODO: this shouldn't be static. get the random when you need it to avoid sharing.
   public static Random r;
@@ -346,7 +340,7 @@ public abstract class BaseDistributedSearchTestCase extends SolrTestCaseJ4 {
 
   protected void destroyServers() throws Exception {
     ExecutorService customThreadPool =
-        ExecutorUtil.newMDCAwareCachedThreadPool(new SolrNamedThreadFactory("closeThreadPool"));
+        Executors.newVirtualThreadPerTaskExecutor();
 
     customThreadPool.submit(() -> IOUtils.closeQuietly(controlClient));
 

@@ -70,6 +70,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -265,14 +266,7 @@ public abstract class SolrTestCaseJ4 extends SolrTestCase {
     resetExceptionIgnores();
 
     testExecutor =
-        new ExecutorUtil.MDCAwareThreadPoolExecutor(
-            0,
-            Integer.MAX_VALUE,
-            15L,
-            TimeUnit.SECONDS,
-            new SynchronousQueue<>(),
-            new SolrNamedThreadFactory("testExecutor"),
-            true);
+        Executors.newVirtualThreadPerTaskExecutor();
 
     // not strictly needed by this class at this point in the control lifecycle, but for
     // backcompat create it now in case any third party tests expect initCoreDataDir to be

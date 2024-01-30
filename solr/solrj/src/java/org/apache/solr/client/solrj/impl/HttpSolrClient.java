@@ -44,6 +44,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import org.apache.http.Header;
@@ -295,7 +296,7 @@ public class HttpSolrClient extends BaseHttpSolrClient {
     HttpUriRequestResponse mrr = new HttpUriRequestResponse();
     final HttpRequestBase method = createMethod(request, null);
     ExecutorService pool =
-        ExecutorUtil.newMDCAwareFixedThreadPool(1, new SolrNamedThreadFactory("httpUriRequest"));
+        Executors.newVirtualThreadPerTaskExecutor();
     try {
       MDC.put("HttpSolrClient.url", baseUrl);
       mrr.future =

@@ -41,6 +41,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -437,6 +438,7 @@ public abstract class AbstractFullDistribZkTestBase extends AbstractDistribZkTes
             TimeUnit.SECONDS,
             SolrCloudTestCase.activeClusterShape(sliceCount, 0));
 
+    // Refactoring causes error related to random()
     ExecutorService customThreadPool =
         ExecutorUtil.newMDCAwareCachedThreadPool(new SolrNamedThreadFactory("closeThreadPool"));
 
@@ -583,8 +585,7 @@ public abstract class AbstractFullDistribZkTestBase extends AbstractDistribZkTes
     ExecutorUtil.shutdownAndAwaitTermination(customThreadPool);
 
     customThreadPool =
-        ExecutorUtil.newMDCAwareCachedThreadPool(
-            new SolrNamedThreadFactory("createReplicaRequests"));
+        Executors.newVirtualThreadPerTaskExecutor();
 
     for (CollectionAdminRequest<CollectionAdminResponse> r : createReplicaRequests) {
       customThreadPool.submit(
@@ -604,8 +605,7 @@ public abstract class AbstractFullDistribZkTestBase extends AbstractDistribZkTes
     ExecutorUtil.shutdownAndAwaitTermination(customThreadPool);
 
     customThreadPool =
-        ExecutorUtil.newMDCAwareCachedThreadPool(
-            new SolrNamedThreadFactory("createPullReplicaRequests"));
+        Executors.newVirtualThreadPerTaskExecutor();
     for (CollectionAdminRequest<CollectionAdminResponse> r : createPullReplicaRequests) {
       customThreadPool.submit(
           () -> {
@@ -1977,7 +1977,7 @@ public abstract class AbstractFullDistribZkTestBase extends AbstractDistribZkTes
   @Override
   protected void destroyServers() throws Exception {
     ExecutorService customThreadPool =
-        ExecutorUtil.newMDCAwareCachedThreadPool(new SolrNamedThreadFactory("closeThreadPool"));
+        Executors.newVirtualThreadPerTaskExecutor();
 
     customThreadPool.submit(() -> IOUtils.closeQuietly(commonCloudSolrClient));
 

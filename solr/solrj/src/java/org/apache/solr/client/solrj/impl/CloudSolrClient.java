@@ -40,6 +40,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -101,8 +102,7 @@ public abstract class CloudSolrClient extends SolrClient {
   private final RequestReplicaListTransformerGenerator requestRLTGenerator;
   private final boolean parallelUpdates;
   private ExecutorService threadPool =
-      ExecutorUtil.newMDCAwareCachedThreadPool(
-          new SolrNamedThreadFactory("CloudSolrClient ThreadPool"));
+      Executors.newVirtualThreadPerTaskExecutor();
 
   public static final String STATE_VERSION = "_stateVer_";
   protected long retryExpiryTimeNano =
