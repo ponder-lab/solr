@@ -26,6 +26,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -146,8 +147,8 @@ public class ExecutorUtil {
   /** See {@link java.util.concurrent.Executors#newFixedThreadPool(int, ThreadFactory)} */
   public static ExecutorService newMDCAwareFixedThreadPool(
       int nThreads, ThreadFactory threadFactory) {
-    return new MDCAwareThreadPoolExecutor(
-        nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), threadFactory);
+        System.out.println("newMDCAwareFixedThreadPool");
+    return Executors.newVirtualThreadPerTaskExecutor();
   }
 
   /** See {@link java.util.concurrent.Executors#newSingleThreadExecutor(ThreadFactory)} */

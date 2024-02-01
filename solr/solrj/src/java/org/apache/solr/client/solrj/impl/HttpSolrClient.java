@@ -292,12 +292,14 @@ public class HttpSolrClient extends BaseHttpSolrClient {
   public HttpUriRequestResponse httpUriRequest(
       final SolrRequest<?> request, final ResponseParser processor)
       throws SolrServerException, IOException {
+        System.out.println("httpUriRequest() call");
     HttpUriRequestResponse mrr = new HttpUriRequestResponse();
     final HttpRequestBase method = createMethod(request, null);
     ExecutorService pool =
         ExecutorUtil.newMDCAwareFixedThreadPool(1, new SolrNamedThreadFactory("httpUriRequest"));
     try {
       MDC.put("HttpSolrClient.url", baseUrl);
+      System.out.println("pool.submit()");
       mrr.future =
           pool.submit(
               () ->
