@@ -292,7 +292,6 @@ public class HttpSolrClient extends BaseHttpSolrClient {
   public HttpUriRequestResponse httpUriRequest(
       final SolrRequest<?> request, final ResponseParser processor)
       throws SolrServerException, IOException {
-        System.out.println("httpUriRequest() call");
     HttpUriRequestResponse mrr = new HttpUriRequestResponse();
     final HttpRequestBase method = createMethod(request, null);
     ExecutorService pool =
