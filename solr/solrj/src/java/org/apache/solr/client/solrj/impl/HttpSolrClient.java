@@ -298,7 +298,6 @@ public class HttpSolrClient extends BaseHttpSolrClient {
         ExecutorUtil.newMDCAwareFixedThreadPool(1, new SolrNamedThreadFactory("httpUriRequest"));
     try {
       MDC.put("HttpSolrClient.url", baseUrl);
-      System.out.println("pool.submit()");
       mrr.future =
           pool.submit(
               () ->
