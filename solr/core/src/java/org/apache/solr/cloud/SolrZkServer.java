@@ -133,7 +133,7 @@ public class SolrZkServer {
     }
     AtomicReference<Exception> zkException = new AtomicReference<>();
     zkThread =
-        new Thread(
+        Thread.ofVirtual().name("embeddedZkServer").unstarted(
             () -> {
               try {
                 if (zkProps.getServers().size() > 1) {
@@ -150,8 +150,7 @@ public class SolrZkServer {
                 log.error("ZooKeeper Server ERROR", e);
                 zkException.set(e);
               }
-            },
-            "embeddedZkServer");
+            });
 
     if (zkProps.getServers().size() > 1) {
       if (log.isInfoEnabled()) {

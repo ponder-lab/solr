@@ -141,17 +141,14 @@ public class ZkSolrClientTest extends SolrTestCaseJ4 {
       Thread.sleep(80);
 
       Thread thread =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               try {
                 zkClient.makePath("collections/collection2", false);
                 // Assert.fail("Server should be down here");
               } catch (KeeperException | InterruptedException e) {
 
               }
-            }
-          };
+          });
 
       thread.start();
 
@@ -164,9 +161,7 @@ public class ZkSolrClientTest extends SolrTestCaseJ4 {
       Thread.sleep(600);
 
       Thread thread2 =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               try {
 
                 zkClient.makePath("collections/collection3", true);
@@ -176,8 +171,7 @@ public class ZkSolrClientTest extends SolrTestCaseJ4 {
               } catch (InterruptedException e) {
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
 
       thread2.start();
 

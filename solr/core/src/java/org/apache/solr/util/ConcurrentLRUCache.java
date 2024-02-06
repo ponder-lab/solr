@@ -341,7 +341,7 @@ public class ConcurrentLRUCache<K, V> implements Cache<K, V>, Accountable {
             || oldestEntryNs.get() < idleCutoff)
         && !isCleaning) {
       if (newThreadForCleanup) {
-        new Thread(this::markAndSweep, "CacheCleanupThread").start();
+        Thread.ofVirtual().name("CacheCleanupThread").start(this::markAndSweep);
       } else if (cleanupThread != null) {
         cleanupThread.wakeThread();
       } else {

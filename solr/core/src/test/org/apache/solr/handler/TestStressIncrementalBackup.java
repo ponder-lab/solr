@@ -109,9 +109,7 @@ public class TestStressIncrementalBackup extends SolrCloudTestCase {
     // this thread will do nothing but add/commit new 'dummy' docs over and over again as fast as
     // possible to create a lot of index churn w/ segment merging
     final Thread heavyCommitting =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofVirtual().unstarted(() -> {
             try {
               int docIdCounter = 0;
               while (keepGoing.get()) {
@@ -137,8 +135,7 @@ public class TestStressIncrementalBackup extends SolrCloudTestCase {
             } catch (Throwable t) {
               heavyCommitFailure.set(t);
             }
-          }
-        };
+        });
 
     heavyCommitting.start();
     try {

@@ -96,11 +96,8 @@ public class TestReloadDeadlock extends TestRTGBase {
 
     for (int i = 0; i < nWriteThreads; i++) {
       Thread thread =
-          new Thread("WRITER" + i) {
+          Thread.ofVirtual().name("WRITER" + i).unstarted(() -> {
             Random rand = new Random(random().nextInt());
-
-            @Override
-            public void run() {
               try {
                 while (reloads.get() > 0) {
                   int oper = rand.nextInt(100);
@@ -173,8 +170,7 @@ public class TestReloadDeadlock extends TestRTGBase {
                 log.error("", e);
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
 
       threads.add(thread);
     }

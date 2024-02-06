@@ -218,7 +218,7 @@ public class ZkShardTermsTest extends SolrCloudTestCase {
     for (int i = 0; i < failedReplicas.size(); i++) {
       String replica = failedReplicas.get(i);
       threads[i] =
-          new Thread(
+          Thread.ofPlatform().unstarted(
               () -> {
                 try (ZkShardTerms zkShardTerms =
                     new ZkShardTerms(collection, "shard1", cluster.getZkClient())) {

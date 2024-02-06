@@ -79,17 +79,14 @@ public class TestSolrJ extends SolrTestCaseJ4 {
       final int base = threadNum * docsPerThread;
 
       threads[threadNum] =
-          new Thread("add-thread" + i) {
-            @Override
-            public void run() {
+          Thread.ofVirtual().name("add-thread" + i).unstarted(() -> {
               try {
                 indexDocs(base, docsPerThread, maxSleep);
               } catch (Exception e) {
                 log.error("###############################CAUGHT EXCEPTION", e);
                 ex = e;
               }
-            }
-          };
+          });
       threads[threadNum].start();
     }
 

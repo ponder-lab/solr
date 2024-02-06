@@ -360,15 +360,12 @@ public class TestLazyCores extends SolrTestCaseJ4 {
       Thread[] threads = new Thread[15];
       for (int idx = 0; idx < threads.length; idx++) {
         threads[idx] =
-            new Thread() {
-              @Override
-              public void run() {
+            Thread.ofPlatform().unstarted(() -> {
                 SolrCore core = cc.getCore("collection3");
                 synchronized (theCores) {
                   theCores.add(core);
                 }
-              }
-            };
+            });
         threads[idx].start();
       }
       for (Thread thread : threads) {
@@ -1053,9 +1050,7 @@ public class TestLazyCores extends SolrTestCaseJ4 {
       //  this streaming callback mechanism.
       var longRequestLatch = new CountDownLatch(1);
       var thread =
-          new Thread("longRequest") {
-            @Override
-            public void run() {
+          Thread.ofVirtual().name("longRequest").unstarted(() -> {
               try {
                 solr.queryAndStreamResponse(
                     transientCoreNames[0],
@@ -1078,8 +1073,7 @@ public class TestLazyCores extends SolrTestCaseJ4 {
               } catch (SolrServerException | IOException e) {
                 fail(e.toString());
               }
-            }
-          };
+          });
       thread.start();
 
       System.out.println("Inducing pressure on cache by querying many cores...");

@@ -153,10 +153,7 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
     final AtomicInteger docsSent = new AtomicInteger(0);
     final Random rand = new Random(5150);
     Thread docSenderThread =
-        new Thread() {
-          @Override
-          public void run() {
-
+        Thread.ofVirtual().unstarted(() -> {
             // brief delay before sending docs
             try {
               Thread.sleep(rand.nextInt(30) + 1);
@@ -178,13 +175,10 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
               } catch (Exception e) {
               }
             }
-          }
-        };
+        });
 
     Thread reloaderThread =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofVirtual().unstarted(() -> {
             try {
               Thread.sleep(rand.nextInt(300) + 1);
             } catch (InterruptedException e) {
@@ -201,14 +195,10 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
               } catch (InterruptedException e) {
               }
             }
-          }
-        };
+        });
 
     Thread deleteThread =
-        new Thread() {
-          @Override
-          public void run() {
-
+        Thread.ofVirtual().unstarted(() -> {
             // brief delay before sending docs
             try {
               Thread.sleep(500);
@@ -230,13 +220,10 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
                 }
               }
             }
-          }
-        };
+        });
 
     Thread committerThread =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofVirtual().unstarted(() -> {
             try {
               Thread.sleep(rand.nextInt(200) + 1);
             } catch (InterruptedException e) {
@@ -253,8 +240,7 @@ public class DistributedVersionInfoTest extends SolrCloudTestCase {
               } catch (InterruptedException e) {
               }
             }
-          }
-        };
+        });
 
     docSenderThread.start();
     reloaderThread.start();

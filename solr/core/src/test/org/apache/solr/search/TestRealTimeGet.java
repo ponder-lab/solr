@@ -657,11 +657,8 @@ public class TestRealTimeGet extends TestRTGBase {
 
     for (int i = 0; i < nWriteThreads; i++) {
       Thread thread =
-          new Thread("WRITER" + i) {
+          Thread.ofPlatform().name("WRITER" + i).unstarted(() -> {
             Random rand = new Random(random().nextInt());
-
-            @Override
-            public void run() {
               try {
                 while (operations.get() > 0) {
                   int oper = rand.nextInt(100);
@@ -844,19 +841,15 @@ public class TestRealTimeGet extends TestRTGBase {
                 operations.set(-1L);
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
 
       threads.add(thread);
     }
 
     for (int i = 0; i < nReadThreads; i++) {
       Thread thread =
-          new Thread("READER" + i) {
+          Thread.ofPlatform().name("READER" + i).unstarted(() -> {
             Random rand = new Random(random().nextInt());
-
-            @Override
-            public void run() {
               try {
                 while (operations.decrementAndGet() >= 0) {
                   // bias toward a recently changed doc
@@ -922,8 +915,7 @@ public class TestRealTimeGet extends TestRTGBase {
                 operations.set(-1L);
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
 
       threads.add(thread);
     }

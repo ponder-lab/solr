@@ -232,9 +232,7 @@ public class TestSolrCLIRunExample extends SolrTestCaseJ4 {
 
       standaloneSolr = new JettySolrRunner(solrHomeDir.getAbsolutePath(), port);
       Thread bg =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofVirtual().unstarted(() -> {
               try {
                 standaloneSolr.start();
               } catch (Exception e) {
@@ -244,8 +242,7 @@ public class TestSolrCLIRunExample extends SolrTestCaseJ4 {
                   throw new RuntimeException(e);
                 }
               }
-            }
-          };
+          });
       bg.start();
 
       return 0;

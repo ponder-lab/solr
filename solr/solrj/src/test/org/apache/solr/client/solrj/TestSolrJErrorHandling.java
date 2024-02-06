@@ -159,11 +159,8 @@ public class TestSolrJErrorHandling extends SolrJettyTestBase {
     for (int i = 0; i < numThreads; i++) {
       final int threadNum = i;
       threads.add(
-          new Thread() {
+          Thread.ofVirtual().unstarted(() -> {
             int reqLeft = numRequests;
-
-            @Override
-            public void run() {
               try {
                 while (--reqLeft >= 0) {
                   tries.incrementAndGet();
@@ -172,8 +169,7 @@ public class TestSolrJErrorHandling extends SolrJettyTestBase {
               } catch (Throwable e) {
                 // Allow thread to exit, we should have already recorded the exception.
               }
-            }
-          });
+          }));
     }
 
     for (Thread thread : threads) {

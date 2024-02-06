@@ -107,15 +107,13 @@ public class OverseerRoleCmd implements CollApiCmds.CollectionApiCommand {
     // if there are too many nodes this command may time out. And most likely dedicated
     // overseers are created when there are too many nodes  . So , do this operation in a separate
     // thread
-    new Thread(
+    Thread.ofVirtual().name("OverseerPrioritizationThread").start(
             () -> {
               try {
                 overseerPrioritizer.prioritizeOverseerNodes(ccc.getOverseerId());
               } catch (Exception e) {
                 log.error("Error in prioritizing Overseer", e);
               }
-            },
-            "OverseerPrioritizationThread")
-        .start();
+            });
   }
 }

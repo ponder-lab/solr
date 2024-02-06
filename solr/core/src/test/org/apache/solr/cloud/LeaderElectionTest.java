@@ -484,9 +484,7 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
     scheduler.schedule(thread1, 0, TimeUnit.MILLISECONDS);
 
     Thread scheduleThread =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofPlatform().unstarted(() -> {
             int count = atLeast(5);
             for (int i = 1; i < count; i++) {
               int launchIn = random().nextInt(500);
@@ -501,13 +499,10 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
                 scheduler.schedule(thread, launchIn, TimeUnit.MILLISECONDS);
               }
             }
-          }
-        };
+        });
 
     Thread killThread =
-        new Thread() {
-          @Override
-          public void run() {
+        Thread.ofVirtual().unstarted(() -> {
 
             while (!stopStress) {
               try {
@@ -527,11 +522,10 @@ public class LeaderElectionTest extends SolrTestCaseJ4 {
               } catch (Exception e) {
               }
             }
-          }
-        };
+        });
 
     Thread connLossThread =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               while (!stopStress) {
                 try {

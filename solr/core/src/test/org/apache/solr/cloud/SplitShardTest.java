@@ -235,7 +235,7 @@ public class SplitShardTest extends SolrCloudTestCase {
 
       for (int i = 0; i < nThreads; i++) {
         indexThreads[i] =
-            new Thread(
+            Thread.ofVirtual().unstarted(
                 () -> {
                   while (doIndex.get()) {
                     try {

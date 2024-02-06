@@ -83,9 +83,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     for (int t = 0; t < numThreads; t++) {
       final Random threadRandom = new Random(random().nextLong());
       Thread thread =
-          new Thread() {
-            @Override
-            public void run() {
+          Thread.ofPlatform().unstarted(() -> {
               try {
                 startingGun.await();
                 int iters = atLeast(1000);
@@ -139,8 +137,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
               } catch (Exception e) {
                 throw new RuntimeException(e);
               }
-            }
-          };
+          });
       thread.start();
       threads.add(thread);
     }
@@ -215,10 +212,8 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
     Thread[] threads = new Thread[NUM_THREADS];
     for (int thread = 0; thread < NUM_THREADS; thread++) {
       threads[thread] =
-          new Thread() {
-            @Override
-            public void run() {
-              Random random = random();
+          Thread.ofPlatform().unstarted(() -> {
+              Random random2 = random();
               final SortedDocValues stringDVDirect;
               final NumericDocValues docIDToID;
               try {
@@ -243,7 +238,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
               }
               while (System.nanoTime() < END_TIME) {
                 for (int iter = 0; iter < 100; iter++) {
-                  final int docID = random.nextInt(sr.maxDoc());
+                  final int docID = random2.nextInt(sr.maxDoc());
                   try {
                     SortedDocValues dvs = sr.getSortedDocValues("stringdv");
                     assertEquals(docID, dvs.advance(docID));
@@ -254,8 +249,7 @@ public class TestFieldCacheWithThreads extends SolrTestCase {
                   }
                 }
               }
-            }
-          };
+          });
       threads[thread].start();
     }
 

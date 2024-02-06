@@ -699,7 +699,7 @@ public class OverseerCollectionConfigSetProcessorTest extends SolrTestCaseJ4 {
   }
 
   protected void startComponentUnderTest() {
-    thread = new Thread(underTest);
+    thread = Thread.ofVirtual().unstarted(underTest);
     thread.start();
   }
 

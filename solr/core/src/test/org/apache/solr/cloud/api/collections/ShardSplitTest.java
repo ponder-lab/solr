@@ -550,7 +550,7 @@ public class ShardSplitTest extends BasicDistributedZkTest {
               });
         };
 
-    Thread monkeyThread = new Thread(monkey);
+    Thread monkeyThread = Thread.ofVirtual().unstarted(monkey);
     monkeyThread.start();
     try {
       CollectionAdminRequest.SplitShard splitShard =
@@ -702,7 +702,7 @@ public class ShardSplitTest extends BasicDistributedZkTest {
               exc.set(e);
             }
           };
-      Thread t = new Thread(r);
+      Thread t = Thread.ofVirtual().unstarted(r);
       t.start();
       // wait for the split to start executing
       TimeOut timeOut = new TimeOut(30, TimeUnit.SECONDS, TimeSource.NANO_TIME);
@@ -868,7 +868,7 @@ public class ShardSplitTest extends BasicDistributedZkTest {
 
     List<String> errors = new CopyOnWriteArrayList<>();
     Thread indexThread =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               Random random = random();
               int max = atLeast(random, 401);

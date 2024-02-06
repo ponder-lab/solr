@@ -1188,7 +1188,7 @@ public class OverseerTest extends SolrTestCaseJ4 {
       ZkController.createClusterZkNodes(zkClient);
 
       killer = new OverseerRestarter(server.getZkAddress());
-      killerThread = new Thread(killer, "OverseerRestarter");
+      killerThread = Thread.ofVirtual().name("OverseerRestarter").unstarted(killer);
       killerThread.start();
 
       reader = new ZkStateReader(zkClient);
@@ -1933,7 +1933,7 @@ public class OverseerTest extends SolrTestCaseJ4 {
     doAnswer(
             invocable -> {
               Runnable r = invocable.getArgument(0);
-              Thread t = new Thread(r);
+              Thread t = Thread.ofVirtual().unstarted(r);
               t.start();
               return null;
             })
@@ -2147,7 +2147,7 @@ public class OverseerTest extends SolrTestCaseJ4 {
     final OverseerTaskQueue.LatchWatcher latch2 =
         new OverseerTaskQueue.LatchWatcher(Event.EventType.NodeCreated);
     Thread t =
-        new Thread(
+        Thread.ofVirtual().unstarted(
             () -> {
               // Process an event of a different type first, this shouldn't release the latch
               latch2.process(

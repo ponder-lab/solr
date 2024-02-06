@@ -3485,7 +3485,7 @@ public class SolrCore implements SolrInfoBean, Closeable {
     final String coreName = getName();
     if (myDirFactory != null && myDataDir != null && myIndexDir != null) {
       Thread cleanupThread =
-          new Thread(
+          Thread.ofVirtual().name("OldIndexDirectoryCleanupThreadForCore-" + coreName).unstarted(
               () -> {
                 log.debug(
                     "Looking for old index directories to cleanup for core {} in {}",
@@ -3496,8 +3496,7 @@ public class SolrCore implements SolrInfoBean, Closeable {
                 } catch (Exception exc) {
                   log.error("Failed to cleanup old index directories for core {}", coreName, exc);
                 }
-              },
-              "OldIndexDirectoryCleanupThreadForCore-" + coreName);
+              });
       cleanupThread.setDaemon(true);
       cleanupThread.start();
     }

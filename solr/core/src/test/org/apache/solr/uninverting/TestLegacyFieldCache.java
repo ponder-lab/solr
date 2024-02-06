@@ -240,10 +240,7 @@ public class TestLegacyFieldCache extends SolrTestCase {
             });
     for (int threadIDX = 0; threadIDX < NUM_THREADS; threadIDX++) {
       threads[threadIDX] =
-          new Thread() {
-            @Override
-            public void run() {
-
+          Thread.ofPlatform().unstarted(() -> {
               try {
                 while (!failed.get()) {
                   final int op = random().nextInt(3);
@@ -275,8 +272,7 @@ public class TestLegacyFieldCache extends SolrTestCase {
                 restart.reset();
                 throw new RuntimeException(t);
               }
-            }
-          };
+          });
       threads[threadIDX].start();
     }
 

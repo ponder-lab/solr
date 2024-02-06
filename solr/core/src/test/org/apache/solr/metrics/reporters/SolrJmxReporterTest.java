@@ -231,7 +231,7 @@ public class SolrJmxReporterTest extends SolrTestCaseJ4 {
     final ObjectInstance inst = objects.iterator().next();
     final AtomicBoolean running = new AtomicBoolean(true);
     try {
-      new Thread(
+      Thread.ofVirtual().name("TestMBeanThread").start(
               () -> {
                 while (running.get()) {
                   try {
@@ -244,9 +244,7 @@ public class SolrJmxReporterTest extends SolrTestCaseJ4 {
                     fail("Unexpected error retrieving attribute: " + e);
                   }
                 }
-              },
-              "TestMBeanThread")
-          .start();
+              });
 
       // This should be enough time for the
       Thread.sleep(500);
