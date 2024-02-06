@@ -147,7 +147,6 @@ public class ExecutorUtil {
   /** See {@link java.util.concurrent.Executors#newFixedThreadPool(int, ThreadFactory)} */
   public static ExecutorService newMDCAwareFixedThreadPool(
       int nThreads, ThreadFactory threadFactory) {
-        System.out.println("newMDCAwareFixedThreadPool");
     return Executors.newVirtualThreadPerTaskExecutor();
   }
 
