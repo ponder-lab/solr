@@ -40,4 +40,4 @@ jobs:
           ${{ runner.os }}-gradle-solrj-
           ${{ runner.os }}-gradle-
     - name: Test the SolrJ Package
-      run: ./gradlew -Djavac.failOnWarnings=false solr:solrj:test
+      run: ./gradlew -Djavac.failOnWarnings=false -Dtests.useSecurityManager=false solr:solrj:test --fail-fast
